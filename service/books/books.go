@@ -1,7 +1,6 @@
 package books
 
 import (
-	"github.com/dylanh/library-app/core/books"
 	"github.com/dylanh/library-app/global"
 	"github.com/dylanh/library-app/model/form"
 	"strings"
@@ -10,13 +9,13 @@ import (
 // SaveBookBooking create a new book booking
 func SaveBookBooking(f *form.SaveBookBookingRequest) (res form.SaveBookBookingResponse, err error) {
 	// check if book exist from db(mock)
-	bookDetails, err := books.GetBookDetailsFromDB(f.BookID)
+	bookDetails, err := Client.GetBookDetailsFromDB(f.BookID)
 
 	// if no books exist
-	if len(bookDetails) == 0 {
+	if len(bookDetails) == 0 || err != nil {
 		return form.SaveBookBookingResponse{
 			Code:    400,
-			Message: "no books exist with the given IDs",
+			Message: "fail to book requested books",
 		}, err
 	}
 
@@ -27,7 +26,7 @@ func SaveBookBooking(f *form.SaveBookBookingRequest) (res form.SaveBookBookingRe
 	}
 
 	//hit db to save book booking (mock)
-	bookIDs, partialSuccess, err := books.InsertBookBooking(bookIDs, f.PickUpSchedule, f.UserID)
+	bookIDs, partialSuccess, err := Client.InsertBookBooking(bookIDs, f.PickUpSchedule, f.UserID)
 	if err != nil && !partialSuccess {
 		return form.SaveBookBookingResponse{
 			Code:                      500,
@@ -64,7 +63,7 @@ func GetBooksListBySubject(subject string, limit int, page int) (res []form.Book
 	var bookData []form.BooksList
 
 	// get books from openLibrary API
-	data, err := books.GetBooksListAPIBySubject(subject, limit, offset)
+	data, err := Client.GetBooksListAPIBySubject(subject, limit, offset)
 	for _, v := range data.Data {
 		bookID := strings.Split(v.Key, "/")[2]
 		bookData = append(bookData, form.BooksList{
