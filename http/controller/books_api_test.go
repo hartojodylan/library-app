@@ -253,7 +253,6 @@ func Test_SaveBookBooking(t *testing.T) {
 
 			var r form.SaveBookBookingResponse
 			want := form.SaveBookBookingResponse{}
-			fmt.Println(string(recorder.Body.Bytes()[:]))
 			err = json.Unmarshal(recorder.Body.Bytes(), &r)
 			assert.NoError(t, err, "unmarshall no error")
 
