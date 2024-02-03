@@ -17,6 +17,8 @@ app/ Common directory (public methods, application initialization, public compon
 cmd/ CLI command line application commands
   |_ cliapp/ command line application entry file (main)
 config/ Application configuration directory (basic configuration plus various environment configurations)
+core/ Low level logic code directory (such as database connection, cache connection, etc.)
+global/ Global variables and constants acting as db
 model/  Data and logic code directory
   |- form/  Request form structure data definition, form validation configuration
   |- logic/ Logic processing
@@ -25,7 +27,8 @@ model/  Data and logic code directory
   |_ rds/   Redis data model definition
 resource/   Non-code resources used by some projects (language files, view template files, etc.)
 runtime/    Temporary file directory (file cache, log files, etc.)
-static/     Static resource directory (js, css, etc.)
+service/   Service layer directory(high-level logic code, such as business logic, etc.)
+static/     Static resource directory (swagger yaml, js, css, etc.)
 main.go     Web application entry file
 Dockerfile  Dockerfile
 Makefile    Has written some common shortcut commands to help package, build docker, generate documentation, run tests, etc.
