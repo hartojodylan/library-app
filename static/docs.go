@@ -38,7 +38,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/form.CreateBookingForm"
+                            "$ref": "#/definitions/form.SaveBookBookingRequest"
                         }
                     }
                 ],
@@ -145,21 +145,28 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "form.CreateBookingForm": {
+        "form.SaveBookBookingRequest": {
             "type": "object",
             "required": [
+                "book-id",
+                "pick-up-schedule",
                 "user-id"
             ],
             "properties": {
+                "book-id": {
+                    "description": "BookID to be booked",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "harry potter"
+                    ]
+                },
                 "pick-up-schedule": {
                     "description": "Pick up schedule",
                     "type": "string",
                     "example": "12-12-2012 12:12:12"
-                },
-                "title": {
-                    "description": "BookID to be booked",
-                    "type": "string",
-                    "example": "harry potter"
                 },
                 "user-id": {
                     "description": "UserID who's booking",
