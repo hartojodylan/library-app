@@ -38,9 +38,9 @@ func (m *ClientMock) GetBookDetailsFromDB(bookIDs []string) (res []form.BooksLis
 }
 
 func (m *ClientMock) InsertBookBooking(bookIDs []string, pickUpSchedule string, userID int64) (successBookIDs []string, partialSuccess bool, err error) {
-	return m.InsertBookBookingFunc(bookIDs, pickUpSchedule, userID)
+	return mockInsertBookBookingFunc(bookIDs, pickUpSchedule, userID)
 }
 
 func (m *ClientMock) GetBooksListAPIBySubject(subject string, limit int, offset int) (res form.GetBooksListApiResponse, err error) {
-	return m.GetBooksListAPIBySubject(subject, limit, offset)
+	return mockGetBooksListAPIBySubject(subject, limit, offset)
 }
