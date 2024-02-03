@@ -6,6 +6,7 @@ import (
 	"github.com/dylanh/library-app/model/form"
 	"github.com/gookit/rux"
 	"strconv"
+	"time"
 )
 
 type BooksApi struct {
@@ -68,7 +69,7 @@ func (u *BooksApi) GetBooksListBySubject(c *rux.Context) {
 // @Tags BooksApi
 // @Summary Create a new book booking
 // @Description insert book booking data
-// @Param   bodyData     body    form.SaveBookBookingRequest     true  "new booking data"
+// @Param   bodyData     body    form.SaveBookBookingRequest     true  "pickUpSchedule format: 2006-01-02 15:04:05"
 // @Failure 200 {object} model.JsonMapData "Need booking data!!"
 // @Failure 404 {object} model.JsonMapData "Cannot insert booking data"
 // @Router /books [post]
@@ -76,7 +77,14 @@ func (u *BooksApi) SaveBookBooking(c *rux.Context) {
 	var f form.SaveBookBookingRequest
 
 	if err := c.Bind(&f); err != nil {
-		c.AbortThen().JSON(400, u.MakeRes(400, fmt.Errorf("invalid parameter"), "error param", []string{}))
+		c.AbortThen().JSON(400, u.MakeRes(400, err, "error param", []string{}))
+		return
+	}
+
+	// validate pick up schedule is valid datetime format
+	_, err := time.Parse("2006-01-02 15:04:05", f.PickUpSchedule)
+	if err != nil {
+		c.JSON(400, u.MakeRes(400, err, "invalid pick up schedule format", nil))
 		return
 	}
 
