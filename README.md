@@ -6,6 +6,19 @@ For a company :)
 - Swagger API documentation generation, environment settings, redis, mysql, mongo
 - Use `go mod` to install the management dependencies
 
+# API Usage
+note: refer to swagger for body and query parameters
+- GET - `/v1/books/{subject}`
+
+    - For get, api will retrieve from OpenLibrary and store the book key `/works/OL66534W` as `OL66534W`
+    then book details such as author, title and edition number will be stored in the global variable acting as a database.
+    - This API uses paging, so you can specify the limit and page number to retrieve the data.
+- POST - `/v1/books`
+    
+    - For post, a user can book multiple books with one API call. The API will store the book details in the global variable acting as a database.
+    If the book already exists, the user won't be able to book said book and will be notified. If the user books multiple books and some of the books are booked, the user will be notified.
+    - The user needs to specify the book ids, the user's id and the pick up schedule.
+
 ## Project Structure
 
 ```text
