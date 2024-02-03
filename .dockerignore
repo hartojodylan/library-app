@@ -1,0 +1,15 @@
+.idea/
+.git/
+docs/
+tests/
+temp/
+runtime/
+swagger/
+Gopkg.lock
+.env
+*.md
+*.tmp
+*.map
+LICENSE
+.travis.yml
+library-app

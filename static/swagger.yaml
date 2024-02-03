@@ -1,0 +1,120 @@
+basePath: /v1
+definitions:
+  form.CreateBookingForm:
+    properties:
+      pick-up-schedule:
+        description: Pick up schedule
+        example: 12-12-2012 12:12:12
+        type: string
+      title:
+        description: BookID to be booked
+        example: harry potter
+        type: string
+      user-id:
+        description: UserID who's booking
+        type: integer
+    required:
+    - user-id
+    type: object
+  model.JsonMapData:
+    properties:
+      code:
+        type: integer
+      data:
+        additionalProperties:
+          type: string
+        type: object
+      message:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: https://github.com/inhere
+  description: My Project API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://github.com/inhere
+  title: My Project API
+  version: "1.0"
+paths:
+  /books:
+    post:
+      description: insert book booking data
+      parameters:
+      - description: new booking data
+        in: body
+        name: bodyData
+        required: true
+        schema:
+          $ref: '#/definitions/form.CreateBookingForm'
+      responses:
+        "200":
+          description: Need booking data!!
+          schema:
+            $ref: '#/definitions/model.JsonMapData'
+        "404":
+          description: Cannot insert booking data
+          schema:
+            $ref: '#/definitions/model.JsonMapData'
+      summary: Create a new book booking
+      tags:
+      - BooksApi
+  /books/{subject}:
+    get:
+      description: get book details
+      parameters:
+      - description: book subject
+        in: path
+        name: subject
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Need book subject
+          schema:
+            $ref: '#/definitions/model.JsonMapData'
+        "404":
+          description: Can't find book subject
+          schema:
+            $ref: '#/definitions/model.JsonMapData'
+      summary: Get multiple book details per page
+      tags:
+      - BooksApi
+  /config:
+    get:
+      parameters:
+      - description: config key string
+        in: query
+        name: key
+        type: string
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "403":
+          description: Forbidden
+          schema:
+            type: body
+      summary: Get app config
+      tags:
+      - InternalApi
+  /health:
+    get:
+      description: get app health
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "403":
+          description: Forbidden
+          schema:
+            type: body
+      summary: Health check
+      tags:
+      - InternalApi
+swagger: "2.0"
