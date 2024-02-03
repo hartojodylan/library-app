@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/dylanh/library-app/app/errcode"
 	"github.com/dylanh/library-app/model/form"
-	books "github.com/dylanh/library-app/service/books"
 	"github.com/gookit/rux"
 	"strconv"
 )
@@ -56,13 +55,13 @@ func (u *BooksApi) GetBooksListBySubject(c *rux.Context) {
 	}
 
 	// get book details
-	res, err := books.GetBooksListBySubject(subject, limitInt, pageInt)
+	res, err := Client.GetBooksListBySubject(subject, limitInt, pageInt)
 	if err != nil {
-		c.JSON(404, u.MakeRes(errcode.ErrNotFound, err, "fail", nil))
+		c.JSON(500, u.MakeRes(errcode.ErrNotFound, err, "fail", nil))
 		return
 	}
 
-	c.JSON(200, u.MakeRes(200, nil, "success", rux.M{"data": res}))
+	c.JSON(200, u.MakeRes(200, nil, "success", res))
 	return
 }
 
@@ -77,15 +76,15 @@ func (u *BooksApi) SaveBookBooking(c *rux.Context) {
 	var f form.SaveBookBookingRequest
 
 	if err := c.Bind(&f); err != nil {
-		c.AbortThen().JSON(406, u.MakeRes(errcode.ErrParam, err, "success", map[int]int{}))
+		c.AbortThen().JSON(400, u.MakeRes(400, err, "error param", []string{}))
 		return
 	}
 
-	res, err := books.SaveBookBooking(&f)
+	res, err := Client.SaveBookBooking(&f)
 	if err != nil {
-		c.JSON(res.Code, u.MakeRes(res.Code, err, res.Message, rux.M{"book_ids": res.SuccessfullyBookedBookIDs}))
+		c.JSON(res.Code, u.MakeRes(res.Code, err, res.Message, res.SuccessfullyBookedBookIDs))
 		return
 	}
 
-	c.JSON(res.Code, u.MakeRes(res.Code, nil, res.Message, rux.M{"book_ids": res.SuccessfullyBookedBookIDs}))
+	c.JSON(res.Code, u.MakeRes(res.Code, nil, res.Message, res.SuccessfullyBookedBookIDs))
 }

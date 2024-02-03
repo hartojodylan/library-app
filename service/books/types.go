@@ -5,6 +5,8 @@ import (
 	"github.com/dylanh/library-app/model/form"
 )
 
+type BookSvc struct{}
+
 type BookClient interface {
 	GetBookDetailsFromDB(bookIDs []string) (res []form.BooksList, err error)
 	InsertBookBooking(bookIDs []string, pickUpSchedule string, userID int64) (successBookIDs []string, partialSuccess bool, err error)

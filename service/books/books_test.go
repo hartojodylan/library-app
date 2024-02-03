@@ -98,9 +98,10 @@ func Test_SaveBookBooking(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		r := &BookSvc{}
 		t.Run(tt.name, func(t *testing.T) {
 			tt.mock()
-			got, err := SaveBookBooking(&tt.args.request)
+			got, err := r.SaveBookBooking(&tt.args.request)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("SaveBookBooking() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -177,9 +178,10 @@ func Test_GetBooksListBySubject(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
+		r := &BookSvc{}
 		t.Run(tt.name, func(t *testing.T) {
 			tt.mock()
-			got, err := GetBooksListBySubject(tt.args.subject, tt.args.limit, tt.args.page)
+			got, err := r.GetBooksListBySubject(tt.args.subject, tt.args.limit, tt.args.page)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("GetBooksListBySubject() error = %v, wantErr %v", err, tt.wantErr)
 				return

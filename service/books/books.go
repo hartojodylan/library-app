@@ -7,7 +7,7 @@ import (
 )
 
 // SaveBookBooking create a new book booking
-func SaveBookBooking(f *form.SaveBookBookingRequest) (res form.SaveBookBookingResponse, err error) {
+func (b *BookSvc) SaveBookBooking(f *form.SaveBookBookingRequest) (res form.SaveBookBookingResponse, err error) {
 	// check if book exist from db(mock)
 	bookDetails, err := Client.GetBookDetailsFromDB(f.BookID)
 
@@ -53,7 +53,7 @@ func SaveBookBooking(f *form.SaveBookBookingRequest) (res form.SaveBookBookingRe
 }
 
 // GetBooksListBySubject get multiple book details per page
-func GetBooksListBySubject(subject string, limit int, page int) (res []form.BooksList, err error) {
+func (b *BookSvc) GetBooksListBySubject(subject string, limit int, page int) (res []form.BooksList, err error) {
 	// paging via offset
 	offset := 0
 	if page > 1 {
