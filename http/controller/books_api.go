@@ -76,7 +76,7 @@ func (u *BooksApi) SaveBookBooking(c *rux.Context) {
 	var f form.SaveBookBookingRequest
 
 	if err := c.Bind(&f); err != nil {
-		c.AbortThen().JSON(400, u.MakeRes(400, err, "error param", []string{}))
+		c.AbortThen().JSON(400, u.MakeRes(400, fmt.Errorf("invalid parameter"), "error param", []string{}))
 		return
 	}
 
