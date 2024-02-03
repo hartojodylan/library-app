@@ -167,7 +167,7 @@ func Test_SaveBookBooking(t *testing.T) {
 			},
 			args: args{
 				BookID:         []string{"1"},
-				PickUpSchedule: "2021-01-01",
+				PickUpSchedule: "2021-01-01 12:12:12",
 				UserID:         1,
 			},
 			wantCode: 500,
@@ -190,7 +190,7 @@ func Test_SaveBookBooking(t *testing.T) {
 			},
 			args: args{
 				BookID:         []string{"1"},
-				PickUpSchedule: "2021-01-01",
+				PickUpSchedule: "2021-01-01 12:12:12",
 				UserID:         1,
 			},
 			wantCode: 200,
@@ -213,7 +213,7 @@ func Test_SaveBookBooking(t *testing.T) {
 			},
 			args: args{
 				BookID:         []string{"1", "2"},
-				PickUpSchedule: "2021-01-01",
+				PickUpSchedule: "2021-01-01 12:12:12",
 				UserID:         1,
 			},
 			wantCode: 202,
