@@ -23,6 +23,9 @@ func (u *BooksApi) AddRoutes(g *rux.Router) {
 // @Summary Get multiple book details per page
 // @Description get book details
 // @Param   subject     path    string     true        "book subject"
+// @Param   limit       query   string     true        "limit"
+// @Param   page        query   string     true        "page"
+// @QueryParam
 // @Failure 200 {object} model.JsonMapData "Need book subject"
 // @Failure 404 {object} model.JsonMapData "Can't find book subject"
 // @Router /books/{subject} [get]

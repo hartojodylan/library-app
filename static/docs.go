@@ -33,7 +33,7 @@ const docTemplate = `{
                 "summary": "Create a new book booking",
                 "parameters": [
                     {
-                        "description": "new booking data",
+                        "description": "pickUpSchedule format: 2006-01-02 15:04:05",
                         "name": "bodyData",
                         "in": "body",
                         "required": true,
@@ -71,6 +71,20 @@ const docTemplate = `{
                         "description": "book subject",
                         "name": "subject",
                         "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "limit",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query",
                         "required": true
                     }
                 ],

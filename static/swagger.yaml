@@ -49,7 +49,7 @@ paths:
     post:
       description: insert book booking data
       parameters:
-      - description: new booking data
+      - description: 'pickUpSchedule format: 2006-01-02 15:04:05'
         in: body
         name: bodyData
         required: true
@@ -74,6 +74,16 @@ paths:
       - description: book subject
         in: path
         name: subject
+        required: true
+        type: string
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: string
+      - description: page
+        in: query
+        name: page
         required: true
         type: string
       responses:
